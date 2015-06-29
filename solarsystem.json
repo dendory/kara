@@ -1,0 +1,142 @@
+{
+    "_bad": {
+        "bias": 0,
+        "data": [],
+        "relations": []
+    },
+    "_good": {
+        "bias": 0,
+        "data": [],
+        "relations": []
+    },
+    "_number": {
+        "bias": 0,
+        "data": [],
+        "relations": []
+    },
+    "_person": {
+        "bias": 0,
+        "data": [],
+        "relations": []
+    },
+    "blue": {
+        "bias": 0,
+        "data": [],
+        "relations": [
+            {
+                "name": "earth",
+                "relation": "defines"
+            },
+            {
+                "name": "color",
+                "relation": "is"
+            }
+        ]
+    },
+    "color": {
+        "bias": 1,
+        "data": [],
+        "relations": [
+            {
+                "name": "red",
+                "relation": "defines"
+            },
+            {
+                "name": "blue",
+                "relation": "defines"
+            },
+            {
+                "name": "pink",
+                "relation": "defines"
+            }
+        ]
+    },
+    "earth": {
+        "bias": 2,
+        "data": [],
+        "relations": [
+            {
+                "name": "planet",
+                "relation": "is"
+            },
+            {
+                "name": "blue",
+                "relation": "is"
+            },
+            {
+                "name": "round",
+                "relation": "is"
+            }
+        ]
+    },
+    "mars": {
+        "bias": 1,
+        "data": [],
+        "relations": [
+            {
+                "name": "planet",
+                "relation": "is"
+            },
+            {
+                "name": "red",
+                "relation": "is"
+            },
+            {
+                "name": "round",
+                "relation": "is"
+            }
+        ]
+    },
+    "pink": {
+        "bias": 0,
+        "data": [],
+        "relations": [
+            {
+                "name": "color",
+                "relation": "is"
+            }
+        ]
+    },
+    "planet": {
+        "bias": 1,
+        "data": [],
+        "relations": [
+            {
+                "name": "earth",
+                "relation": "defines"
+            },
+            {
+                "name": "mars",
+                "relation": "defines"
+            }
+        ]
+    },
+    "red": {
+        "bias": 2,
+        "data": [],
+        "relations": [
+            {
+                "name": "mars",
+                "relation": "defines"
+            },
+            {
+                "name": "color",
+                "relation": "is"
+            }
+        ]
+    },
+    "round": {
+        "bias": 1,
+        "data": [],
+        "relations": [
+            {
+                "name": "earth",
+                "relation": "defines"
+            },
+            {
+                "name": "mars",
+                "relation": "defines"
+            }
+        ]
+    }
+}
