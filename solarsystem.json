@@ -52,7 +52,7 @@
         ]
     },
     "earth": {
-        "bias": 2,
+        "bias": 3,
         "data": [],
         "relations": [
             {
@@ -98,7 +98,7 @@
         ]
     },
     "planet": {
-        "bias": 1,
+        "bias": 2,
         "data": [],
         "relations": [
             {
@@ -126,7 +126,7 @@
         ]
     },
     "round": {
-        "bias": 1,
+        "bias": 2,
         "data": [],
         "relations": [
             {
@@ -136,6 +136,34 @@
             {
                 "name": "mars",
                 "relation": "defines"
+            },
+            {
+                "name": "shape",
+                "relation": "is"
+            }
+        ]
+    },
+    "shape": {
+        "bias": 1,
+        "data": [],
+        "relations": [
+            {
+                "name": "round",
+                "relation": "defines"
+            },
+            {
+                "name": "square",
+                "relation": "defines"
+            }
+        ]
+    },
+    "square": {
+        "bias": 0,
+        "data": [],
+        "relations": [
+            {
+                "name": "shape",
+                "relation": "is"
             }
         ]
     }

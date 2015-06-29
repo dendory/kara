@@ -35,6 +35,10 @@ def _basic_types(concepts, term): # Define basic known types
 	if term == "me" or term == "kara": # Person
 		concepts[term]["relations"].append({"name": "_person", "relation": "is"})
 
+def _remove_duplicates(seq): # Remove duplicates from a list
+	seen = set()
+	seen_add = seen.add
+	return [ x for x in seq if not (x in seen or seen_add(x))]
 #
 # Main functions
 #
@@ -126,12 +130,16 @@ def find_terms(concepts, words): # find defined terms in a series of words
 	return results
 
 def find_relation(concepts, term1, term2): # Find the relation between two terms
+	results = []
 	if not str(term1).lower() in concepts or not str(term2).lower() in concepts:
-		return "_undefined"
+		return ["_undefined"]
 	for r in concepts[str(term2).lower()]["relations"]: # 1st generation relation
 		if r["name"] == str(term1).lower():
-			return r["relation"]
+			results.append(r["relation"])
 		for x in concepts[r["name"]]["relations"]: # 2nd generation relation
 			if x["name"] == str(term1).lower():
-				return r["name"]
-	return "_unknown"
+				results.append(r["name"])
+			for y in concepts[x["name"]]["relations"]: # 3rd generation relation
+				if y["name"] == str(term1).lower():
+					results.append(x["name"])
+	return _remove_duplicates(results)

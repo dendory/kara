@@ -43,10 +43,12 @@ while True:
 			quit(0)
 	elif question: # A question was asked
 		terms = kara.find_terms(concepts, words)
-		if len(terms) < 2:
+		if len(terms) == 0:
+			print("Ambiguous question: " + str(words))
+		elif len(terms) == 1:
 			print("Ambiguous question. Only the following term is defined: " + str(terms))
 		else:
-			print("[" + terms[0] + "] of [" + terms[1] + "]: " + kara.find_relation(concepts, terms[0], terms[1]))
+			print("[" + terms[0] + "] of [" + terms[1] + "]: " + str(kara.find_relation(concepts, terms[0], terms[1])))
 	else: # Try to define a relationship
 		found = False
 		for r in kara.relations:
