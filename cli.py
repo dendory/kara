@@ -103,7 +103,7 @@ while True:
 	elif (' clone ' in q or ' copy ' in q) and len(words) > 2: # clone a term
 		kara.clone_terms(concepts, str(words[0]), str(words[-1]))
 	elif ('=' in q or ':' in q) and len(words) > 1: # Save a key/value pair
-		e = q[q.index(words[0])+len(words[0]):].lstrip('\"').lstrip()
+		e = q[q.index(words[0])+len(words[0]):].lstrip('\"').lstrip().replace('\"','')
 		if ':' in q:
 			k = e[0:e.index(':')].rstrip()
 			v = e[e.index(':')+1:].lstrip()
