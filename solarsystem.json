@@ -1,168 +1,194 @@
 {
-    "_bad": {
-        "bias": 0,
-        "data": [],
-        "relations": []
-    },
-    "_good": {
-        "bias": 0,
-        "data": [],
+    "_kara": {
+        "bias": 4,
+        "data": {
+            "creation time": 1448646086,
+            "last modification time": 1448654653,
+            "version": "0.2"
+        },
         "relations": []
     },
     "_number": {
         "bias": 0,
-        "data": [],
+        "data": {},
         "relations": []
     },
-    "_person": {
-        "bias": 0,
-        "data": [],
-        "relations": []
-    },
-    "blue": {
-        "bias": 0,
-        "data": [],
+    "_planet_template": {
+        "bias": 5,
+        "data": {
+            "diameter (km)": "0",
+            "mass (times earth)": "0",
+            "orbit (au)": "0",
+            "satellites": "0",
+            "temperature (c)": "0 to 0"
+        },
         "relations": [
             {
-                "name": "earth",
-                "relation": "defines"
-            },
-            {
-                "name": "color",
+                "name": "planet",
                 "relation": "is"
-            }
-        ]
-    },
-    "color": {
-        "bias": 1,
-        "data": [],
-        "relations": [
-            {
-                "name": "red",
-                "relation": "defines"
-            },
-            {
-                "name": "blue",
-                "relation": "defines"
-            },
-            {
-                "name": "pink",
-                "relation": "defines"
             }
         ]
     },
     "earth": {
-        "bias": 3,
-        "data": [],
+        "bias": 7,
+        "data": {
+            "diameter (km)": "12756",
+            "mass (times earth)": "1",
+            "orbit (au)": "1",
+            "satellites": "1",
+            "temperature (c)": "-88 to 58"
+        },
         "relations": [
             {
                 "name": "planet",
                 "relation": "is"
-            },
-            {
-                "name": "blue",
-                "relation": "is"
-            },
-            {
-                "name": "round",
-                "relation": "is"
             }
         ]
     },
-    "mars": {
-        "bias": 1,
-        "data": [],
+    "jupiter": {
+        "bias": 9,
+        "data": {
+            "diameter (km)": "142984",
+            "mass (times earth)": "317.83",
+            "orbit (au)": "5.2",
+            "satellites": "67",
+            "temperature (c)": "-108"
+        },
         "relations": [
             {
                 "name": "planet",
                 "relation": "is"
-            },
-            {
-                "name": "red",
-                "relation": "is"
-            },
-            {
-                "name": "round",
-                "relation": "is"
             }
         ]
     },
-    "pink": {
+    "kara": {
         "bias": 0,
-        "data": [],
+        "data": {
+            "creation time": 1448646086,
+            "last modification time": 1448648459,
+            "version": "0.2"
+        },
+        "relations": []
+    },
+    "mercury": {
+        "bias": 6,
+        "data": {
+            "diameter (km)": "4879",
+            "mass (times earth)": "0.055",
+            "orbit (au)": "0.39",
+            "satellites": "0",
+            "temperature (c)": "-173 to 427"
+        },
         "relations": [
             {
-                "name": "color",
+                "name": "planet",
                 "relation": "is"
             }
         ]
+    },
+    "neptune": {
+        "bias": 0,
+        "data": {
+            "diameter (km)": "49528",
+            "mass (times earth)": "17.15",
+            "orbit (au)": "30.1",
+            "satellites": "14",
+            "temperature (c)": "-201"
+        },
+        "relations": [
+            {
+                "name": "planet",
+                "relation": "is"
+            }
+        ]
+    },
+    "number": {
+        "bias": 0,
+        "data": {},
+        "relations": []
     },
     "planet": {
-        "bias": 2,
-        "data": [],
+        "bias": 5,
+        "data": {},
         "relations": [
+            {
+                "name": "_planet_template",
+                "relation": "defines"
+            },
+            {
+                "name": "jupiter",
+                "relation": "defines"
+            },
             {
                 "name": "earth",
                 "relation": "defines"
             },
             {
-                "name": "mars",
+                "name": "mercury",
+                "relation": "defines"
+            },
+            {
+                "name": "venus",
+                "relation": "defines"
+            },
+            {
+                "name": "saturn",
+                "relation": "defines"
+            },
+            {
+                "name": "uranus",
+                "relation": "defines"
+            },
+            {
+                "name": "neptune",
                 "relation": "defines"
             }
         ]
     },
-    "red": {
-        "bias": 2,
-        "data": [],
-        "relations": [
-            {
-                "name": "mars",
-                "relation": "defines"
-            },
-            {
-                "name": "color",
-                "relation": "is"
-            }
-        ]
-    },
-    "round": {
-        "bias": 2,
-        "data": [],
-        "relations": [
-            {
-                "name": "earth",
-                "relation": "defines"
-            },
-            {
-                "name": "mars",
-                "relation": "defines"
-            },
-            {
-                "name": "shape",
-                "relation": "is"
-            }
-        ]
-    },
-    "shape": {
-        "bias": 1,
-        "data": [],
-        "relations": [
-            {
-                "name": "round",
-                "relation": "defines"
-            },
-            {
-                "name": "square",
-                "relation": "defines"
-            }
-        ]
-    },
-    "square": {
+    "saturn": {
         "bias": 0,
-        "data": [],
+        "data": {
+            "diameter (km)": "120536",
+            "mass (times earth)": "95.16",
+            "orbit (au)": "9.58",
+            "satellites": "62",
+            "temperature (c)": "-139"
+        },
         "relations": [
             {
-                "name": "shape",
+                "name": "planet",
+                "relation": "is"
+            }
+        ]
+    },
+    "uranus": {
+        "bias": 0,
+        "data": {
+            "diameter (km)": "51118",
+            "mass (times earth)": "14.54",
+            "orbit (au)": "19.22",
+            "satellites": "27",
+            "temperature (c)": "-197"
+        },
+        "relations": [
+            {
+                "name": "planet",
+                "relation": "is"
+            }
+        ]
+    },
+    "venus": {
+        "bias": 6,
+        "data": {
+            "diameter (km)": "12104",
+            "mass (times earth)": "0.815",
+            "orbit (au)": "0.73",
+            "satellites": "0",
+            "temperature (c)": "462"
+        },
+        "relations": [
+            {
+                "name": "planet",
                 "relation": "is"
             }
         ]

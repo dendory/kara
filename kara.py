@@ -1,14 +1,16 @@
 #
-# Concepts engine - (C) 2015 Patrick Lambert - Provided under the MIT License
+# KARA: Concepts engine - (C) 2015 Patrick Lambert - Provided under the MIT License
 #
 import json
 import time
 import re
 import string
+import shlex
 
-relations = ["greater", "lesser", "part", "joins", "contained", "contains", "same", "is", "defines", "plurial", "singular"]
-inverses = ["lesser", "greater", "joins", "part", "contains", "contained", "same", "defines", "is", "singular", "plurial"]
-types = ["_number", "_person", "_good", "_bad"]
+version = "0.2"
+relations = ["greater", "lesser", "part", "joins", "contained", "contains", "same", "plurial", "singular", "is", "defines"]
+inverses = ["lesser", "greater", "joins", "part", "contains", "contained", "same", "singular", "plurial", "defines", "is"]
+reserved_terms = ["_number", "_kara"]
 ignore_terms = ["and", "or", "can", "you", "i", "how", "why", "when", "what", "which", "a", "the", "than", "of", "my", "your"]
 
 #
@@ -24,16 +26,9 @@ def _is_int(num): # Check if a number
 def _now(): # Current unixtime
 	return int(time.time())
 
-def _split_words(text): # Split sentence into words
-	exclude = set(string.punctuation)
-	text = ''.join(ch for ch in text if ch not in exclude)
-	return re.split(' |\n', text)
-
 def _basic_types(concepts, term): # Define basic known types
 	if _is_int(term): # Numbers
 		concepts[term]["relations"].append({"name": "_number", "relation": "is"})
-	if term == "me" or term == "kara": # Person
-		concepts[term]["relations"].append({"name": "_person", "relation": "is"})
 
 def _remove_duplicates(seq): # Remove duplicates from a list
 	seen = set()
@@ -50,23 +45,48 @@ def load_concepts(filename): # Load concepts from file or create blank structure
 		f.close()
 		return concepts
 	except:
-		for t in types:
-			concepts[t] = {"relations": [], "bias": 0, "data": []}
+		for t in reserved_terms:
+			concepts[t] = {"relations": [], "bias": 0, "data": {}}
+		add_data(concepts, "_kara", "creation time", _now())
+		add_data(concepts, "_kara", "version", version)
 		return concepts
 	
 def save_concepts(concepts, filename): # Save concepts back to file
+	add_data(concepts, "_kara", "last modification time", _now())
 	f = open(filename, "w")
 	f.write(json.dumps(concepts, sort_keys=True, indent=4))
 	f.close()
 
-def add_terms(concepts, terms): # Add terms to concepts
-	for term in terms:
-		if term != "":
-			if str(term).lower() not in concepts:
-				concepts[str(term).lower()] = {"relations": [], "bias": 0, "data": []}
-				_basic_types(concepts, str(term).lower())
-			else:
-				concepts[str(term).lower()]["bias"] = concepts[str(term).lower()]["bias"] + 1  # Increase bias when we find a recurrence
+def clone_terms(concepts, term1, term2, force=False):
+	if str(term2).lower() in concepts:
+		if str(term1).lower() not in concepts or force:
+			add_term(concepts, term1)
+			for r in get_relations(concepts, term2):
+				relate_term(concepts, term1, r['name'], r['relation'])
+			for k, v in get_data(concepts, term2).items():
+				add_data(concepts, term1, k, v)
+	elif str(term1).lower() in concepts:
+		if str(term2).lower() not in concepts or force:
+			add_term(concepts, term2)
+			for r in get_relations(concepts, term1):
+				relate_term(concepts, term2, r['name'], r['relation'])
+			for k, v in get_data(concepts, term1).items():
+				add_data(concepts, term2, k, v)
+
+def add_term(concepts, term): # Add term to concepts
+	if term == "":
+		return
+	elif str(term).lower() not in concepts:
+		concepts[str(term).lower()] = {"relations": [], "bias": 0, "data": {}}
+		_basic_types(concepts, str(term).lower())
+	else:
+		concepts[str(term).lower()]["bias"] = concepts[str(term).lower()]["bias"] + 1  # Increase bias when we find a recurrence
+
+def del_term(concepts, term): # Remove a term
+	if str(term).lower() in concepts:
+		for c_name, c in concepts.items():
+			unrelate_term(concepts, term, c_name)
+		del concepts[str(term).lower()]
 
 def get_terms(concepts): # List all terms
 	results = []
@@ -74,6 +94,31 @@ def get_terms(concepts): # List all terms
 		results.append(k)
 	results.sort()
 	return results
+
+def add_data(concepts, term, key, value): # Add key/value pair to term
+	if value == '':
+		try:
+			del concepts[str(term).lower()]["data"][str(key).lower()]
+		except:
+			pass
+	else:
+		if not str(term).lower() in concepts:
+			add_term(concepts, term)
+		concepts[str(term).lower()]["data"][str(key).lower()] = value
+
+def get_data(concepts, term): # Get key/value pairs for a term
+	if term in concepts:
+		return concepts[str(term).lower()]["data"]
+	else:
+		return {}
+
+def get_key(concepts, key): # Get values of a key for all terms
+	results = []
+	for c_name, c in concepts.items():
+		if str(key).lower() in c["data"]:
+			results.append({c_name: c["data"][str(key).lower()]})
+	return results
+
 
 def check_relation(relation): # Validate a relation
 	if str(relation).lower() in relations:
@@ -83,9 +128,20 @@ def check_relation(relation): # Validate a relation
 def inverse_relation(relation): # Inverse a relation
 	return inverses[relations.index(relation)]
 
+def unrelate_term(concepts, term1, term2): # Remove a relation between two terms
+	for r in concepts[str(term1).lower()]["relations"]:
+		if r['name'] == str(term2).lower():
+			concepts[str(term1).lower()]["relations"].remove({"name": str(term2).lower(), "relation": r['relation']})
+	for r in concepts[str(term2).lower()]["relations"]:
+		if r['name'] == str(term1).lower():
+			concepts[str(term2).lower()]["relations"].remove({"name": str(term1).lower(), "relation": r['relation']})
+
+
 def relate_term(concepts, term1, term2, relation): # Assign a relation between two term
-	if not str(term1).lower() in concepts or not str(term2).lower() in concepts:
-		add_terms(concepts, [term1, term2])
+	if not str(term1).lower() in concepts:
+		add_term(concepts, term1)
+	if not str(term2).lower() in concepts:
+		add_term(concepts, term2)
 	if check_relation(relation):
 		found = False
 		for r in concepts[str(term1).lower()]["relations"]:
@@ -101,8 +157,9 @@ def relate_term(concepts, term1, term2, relation): # Assign a relation between t
 			concepts[str(term2).lower()]["relations"].append({"name": str(term1).lower(), "relation": inverse_relation(relation)})
 
 def relate_terms(concepts, terms, term, relation): # Relate multiple terms to one
-	add_terms(concepts, [term])
-	add_terms(concepts, terms)
+	add_term(concepts, term)
+	for t in terms:
+		add_term(concepts, t)
 	for t in terms:
 		relate_term(concepts, t, term, relation)
 
@@ -112,7 +169,7 @@ def get_relations(concepts, term): # Define a concept and its relations
 	return []
 
 def parse_query(text): # Parse a query and return useful terms
-	words = _split_words(text)
+	words = shlex.split(text)
 	for t in ignore_terms:
 		words = [x for x in words if x.lower() != t]
 	return words

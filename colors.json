@@ -1,0 +1,148 @@
+{
+    "black": {
+        "bias": 2,
+        "data": {
+            "html": "#00FFFF"
+        },
+        "relations": []
+    },
+    "blue": {
+        "bias": 1,
+        "data": {
+            "html": "#0000FF"
+        },
+        "relations": [
+            {
+                "name": "color",
+                "relation": "is"
+            }
+        ]
+    },
+    "color": {
+        "bias": 3,
+        "data": {},
+        "relations": [
+            {
+                "name": "blue",
+                "relation": "defines"
+            },
+            {
+                "name": "colors",
+                "relation": "singular"
+            },
+            {
+                "name": "green",
+                "relation": "defines"
+            },
+            {
+                "name": "red",
+                "relation": "defines"
+            },
+            {
+                "name": "colour",
+                "relation": "same"
+            }
+        ]
+    },
+    "colors": {
+        "bias": 0,
+        "data": {},
+        "relations": [
+            {
+                "name": "color",
+                "relation": "plurial"
+            },
+            {
+                "name": "colours",
+                "relation": "same"
+            }
+        ]
+    },
+    "colour": {
+        "bias": 1,
+        "data": {},
+        "relations": [
+            {
+                "name": "color",
+                "relation": "same"
+            },
+            {
+                "name": "colours",
+                "relation": "singular"
+            }
+        ]
+    },
+    "colours": {
+        "bias": 1,
+        "data": {},
+        "relations": [
+            {
+                "name": "colors",
+                "relation": "same"
+            },
+            {
+                "name": "colour",
+                "relation": "plurial"
+            }
+        ]
+    },
+    "cyan": {
+        "bias": 2,
+        "data": {
+            "html": "#00FFFF"
+        },
+        "relations": []
+    },
+    "green": {
+        "bias": 3,
+        "data": {
+            "html": "#FFFF00"
+        },
+        "relations": [
+            {
+                "name": "color",
+                "relation": "is"
+            }
+        ]
+    },
+    "_kara": {
+        "bias": 3,
+        "data": {
+            "creation time": 1448638877,
+            "last modification time": 1448646080,
+            "version": "0.2"
+        },
+        "relations": []
+    },
+    "_number": {
+        "bias": 0,
+        "data": {},
+        "relations": []
+    },
+    "red": {
+        "bias": 2,
+        "data": {
+            "html": "#00FFFF"
+        },
+        "relations": []
+    },
+    "white": {
+        "bias": 2,
+        "data": {
+            "html": "#00FFFF"
+        },
+        "relations": []
+    },
+    "yellow": {
+        "bias": 3,
+        "data": {
+            "html": "#FFFF00"
+        },
+        "relations": [
+            {
+                "name": "color",
+                "relation": "is"
+            }
+        ]
+    }
+}
